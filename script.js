@@ -387,7 +387,7 @@ function closeLightbox() {
 }
 lightboxClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) closeLightbox();
+  if (!e.target.closest('.lightbox-frame') && !e.target.closest('.lightbox-close')) closeLightbox();
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeLightbox();
