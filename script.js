@@ -3,19 +3,19 @@ const heroReels = ['5sLzyEzUbPo', 'b_msmgFr4hg', '64UYVtCI06I', '0R4KVDOt0vk'];
 
 function initHeroPlayer() {
   if (!document.getElementById('heroPlayer')) return; // page has no hero video
-  // Experiment: use YouTube's own playlist+loop (same trick as the ambient
-  // Nosotros players) instead of manually calling loadVideoById() on ENDED.
-  // Trade-off vs before: this can bring back YouTube's native prev/next/pause
-  // chrome briefly on load, but may reduce how often ads get inserted since
-  // it's one continuous playlist session instead of repeated fresh loads.
+  let heroReelIndex = 0;
   new YT.Player('heroPlayer', {
     videoId: heroReels[0],
     playerVars: {
+      // No `loop`/`playlist` here on purpose — those two together are what
+      // put the player into YouTube's native "playlist" mode, and that mode
+      // is what draws the prev/next/pause chrome on top of the video even
+      // with controls:0. We rotate through heroReels ourselves instead
+      // (see onStateChange below), so the player never knows it's playing
+      // a playlist and never shows that UI.
       autoplay: 1,
       mute: 1,
       controls: 0,
-      loop: 1,
-      playlist: heroReels.join(','),
       modestbranding: 1,
       rel: 0,
       showinfo: 0,
@@ -34,6 +34,10 @@ function initHeroPlayer() {
       onStateChange: (e) => {
         if (e.data === YT.PlayerState.PLAYING) {
           e.target.unloadModule('captions');
+        }
+        if (e.data === YT.PlayerState.ENDED) {
+          heroReelIndex = (heroReelIndex + 1) % heroReels.length;
+          e.target.loadVideoById(heroReels[heroReelIndex]);
         } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.CUED) {
           e.target.playVideo();
         }
