@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config *)",
+      "Bash(git commit -m ' *)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://duskx189.github.io/truviews-web/index.html)",
+      "Bash(open -a \"Safari\" \"https://duskx189.github.io/truviews-web/\")",
+      "Bash(\"/Applications/Brave Browser.app/Contents/MacOS/Brave Browser\" --headless=new --remote-debugging-port=9276 --disable-gpu --no-first-run --user-data-dir=/private/tmp/claude-501/-Users-onestar-Documents-TRUVIEWS-WEB/e086da0c-3b42-4df6-8aad-149c092dd0f7/scratchpad/brave-lbclose about:blank)",
+      "Bash(git add *)",
+      "Bash(git push *)",
+      "Bash(\"/Applications/Brave Browser.app/Contents/MacOS/Brave Browser\" --headless=new --remote-debugging-port=9276 --disable-gpu --no-first-run --user-data-dir=/private/tmp/claude-501/-Users-onestar-Documents-TRUVIEWS-WEB/e086da0c-3b42-4df6-8aad-149c092dd0f7/scratchpad/brave-heroloop about:blank)",
+      "Bash(open -a \"Safari\" \"http://localhost:5500/index.html\")",
+      "Bash(qlmanage -t -s 800 -o . \"/Users/onestar/Documents/TRUVIEWS WEB/images/about/Anuelaa Banner.mp4\")",
+      "WebFetch(domain:www.pexels.com)",
+      "Bash(curl -L -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" -o pexels-night-city.mp4 \"https://www.pexels.com/download/video/2229907/\")",
+      "Bash(qlmanage -t -s 800 -o . \"/Users/onestar/Documents/TRUVIEWS WEB/videos/hero/pexels-night-city.mp4\")",
+      "Bash(\"/Applications/Brave Browser.app/Contents/MacOS/Brave Browser\" --headless=new --remote-debugging-port=9276 --disable-gpu --no-first-run --user-data-dir=/private/tmp/claude-501/-Users-onestar-Documents-TRUVIEWS-WEB/e086da0c-3b42-4df6-8aad-149c092dd0f7/scratchpad/brave-pexels about:blank)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:5500/videos/hero/pexels-night-city.mp4\" --max-time 5)",
+      "Bash(nohup python3 -m http.server 5500)",
+      "Bash(node /private/tmp/claude-501/-Users-onestar-Documents-TRUVIEWS-WEB/e086da0c-3b42-4df6-8aad-149c092dd0f7/scratchpad/verify-pexels.mjs)",
+      "Bash(git commit *)",
+      "Bash(git commit --amend -m ' *)",
+      "Bash(curl -s -o /dev/null -w \"index.html: %{http_code}\\\\n\" \"https://duskx189.github.io/truviews-web/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"video: %{http_code} size=%{size_download}\\\\n\" \"https://duskx189.github.io/truviews-web/videos/hero/pexels-night-city.mp4\")",
+      "Bash(\"/Applications/Brave Browser.app/Contents/MacOS/Brave Browser\" --headless=new --remote-debugging-port=9276 --disable-gpu --no-first-run --user-data-dir=/private/tmp/claude-501/-Users-onestar-Documents-TRUVIEWS-WEB/e086da0c-3b42-4df6-8aad-149c092dd0f7/scratchpad/brave-live-check about:blank)",
+      "Bash(git reset *)",
+      "Bash(\"/Applications/Brave Browser.app/Contents/MacOS/Brave Browser\" --headless=new --remote-debugging-port=9276 --disable-gpu --no-first-run --user-data-dir=/private/tmp/claude-501/-Users-onestar-Documents-TRUVIEWS-WEB/e086da0c-3b42-4df6-8aad-149c092dd0f7/scratchpad/brave-randy about:blank)",
+      "Bash(\"/Applications/Brave Browser.app/Contents/MacOS/Brave Browser\" --headless=new --remote-debugging-port=9276 --disable-gpu --no-first-run --user-data-dir=/private/tmp/claude-501/-Users-onestar-Documents-TRUVIEWS-WEB/e086da0c-3b42-4df6-8aad-149c092dd0f7/scratchpad/brave-nosound about:blank)",
+      "Bash(qlmanage -t -s 800 -o . \"/Users/onestar/Documents/TRUVIEWS WEB/videos/hero/BANNER  PROD BY TRUEVIEWS.mp4\")",
+      "Bash(mdls -name kMDItemDurationSeconds \"/Users/onestar/Documents/TRUVIEWS WEB/videos/hero/BANNER  PROD BY TRUEVIEWS.mp4\")"
+    ]
+  }
+}
