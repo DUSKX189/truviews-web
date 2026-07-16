@@ -190,7 +190,8 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
   pointer-events: none;
 }
-.hero-video-bg iframe {
+.hero-video-bg iframe,
+.hero-video-bg video {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -200,6 +201,7 @@ a { color: inherit; text-decoration: none; }
   min-height: 56.25vw; /* keeps 16:9 cover when width is the limiting dimension */
   transform: translate(-50%, -50%);
   filter: saturate(1.1) contrast(1.05) brightness(1);
+  object-fit: cover;
 }
 /* Oscurece el video progresivamente según el scroll — opacidad controlada por JS */
 .hero-overlay {
