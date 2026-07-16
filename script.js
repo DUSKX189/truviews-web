@@ -90,14 +90,13 @@ function createAmbientPlayer(containerId, videoId, startSeconds) {
   });
 }
 
-// Project page hero video — autoplays muted (browser policy), with a
-// sound toggle button since this is the main content, not ambient background.
+// Project page hero video — autoplays muted (browser policy). Native
+// YouTube controls (enabled below) already expose a volume/unmute icon.
 function initProjectPlayer() {
   const container = document.getElementById('projectPlayer');
   if (!container) return;
   const videoId = container.dataset.videoId;
-  const soundBtn = document.getElementById('projectVideoSound');
-  const player = new YT.Player('projectPlayer', {
+  new YT.Player('projectPlayer', {
     videoId,
     playerVars: {
       autoplay: 1,
@@ -118,21 +117,6 @@ function initProjectPlayer() {
       }
     }
   });
-  if (soundBtn) {
-    soundBtn.addEventListener('click', () => {
-      if (player.isMuted()) {
-        player.unMute();
-        soundBtn.textContent = 'SOUND ON';
-        soundBtn.classList.add('is-on');
-        soundBtn.setAttribute('aria-label', 'Silenciar');
-      } else {
-        player.mute();
-        soundBtn.textContent = 'SOUND OFF';
-        soundBtn.classList.remove('is-on');
-        soundBtn.setAttribute('aria-label', 'Activar sonido');
-      }
-    });
-  }
 }
 
 if (document.getElementById('heroPlayer') || document.querySelector('[id^="nosotrosVideo"]') || document.getElementById('projectPlayer')) {
