@@ -908,9 +908,3 @@ main section:not(.hero)::before {
   font-weight: 500 !important;
   font-variation-settings: "wght" 500;
 }
-
-/* Prueba: About en SemiCondensed (mismo peso Medium, ancho reducido) */
-.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display) {
-  font-stretch: 90% !important;
-  font-variation-settings: "wght" 500, "wdth" 90 !important;
-}
