@@ -331,7 +331,7 @@ main section:not(.hero)::before {
 .nosotros-highlight {
   position: relative;
   color: var(--accent);
-  animation: nosotros-flicker 7s ease-in-out infinite;
+  animation: nosotros-flicker 4s ease-in-out infinite;
 }
 .nosotros-highlight::before,
 .nosotros-highlight::after {
