@@ -440,30 +440,52 @@ main section:not(.hero)::before {
 .feat-select--home .feat-title,
 .feat-select--home .feat-names { max-width: 58%; }
 .feat-names {
-  font-family: var(--font-mono);
   font-weight: 400;
-  font-size: clamp(11px, 1.6vw, 16px);
-  line-height: 1.5;
+  font-size: clamp(10px, 1.3vw, 13px);
+  line-height: 1.6;
   letter-spacing: -0.01em;
   color: var(--fg-dim);
   margin: 0;
 }
-.feat-name { transition: color 0.15s ease; cursor: pointer; }
+.feat-name {
+  font-family: var(--font-acumin);
+  font-weight: 400 !important;
+  font-stretch: 115%;
+  font-variation-settings: "wght" 400, "wdth" 115;
+  transition: color 0.15s ease;
+  cursor: pointer;
+}
 .feat-name:hover { color: var(--accent); }
 .feat-name.active { color: var(--accent); }
 .feat-sep { color: var(--fg-faint); }
 
 .feat-categories {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: clamp(13px, 1.8vw, 18px);
-  letter-spacing: 0.03em;
-  color: var(--fg-dim);
-  margin: 0 0 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 32px;
 }
-.feat-category { cursor: pointer; transition: color 0.15s ease; }
-.feat-category:hover { color: var(--accent); }
-.feat-category.active { color: var(--accent); }
+.feat-categories .feat-sep { display: none; }
+.feat-category {
+  font-family: var(--font-acumin);
+  font-weight: 800 !important;
+  font-stretch: 90%;
+  font-variation-settings: "wght" 800, "wdth" 90;
+  font-size: clamp(14px, 2vw, 20px);
+  letter-spacing: 0.02em;
+  color: var(--fg-dim);
+  cursor: pointer;
+  padding: 10px 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.feat-category:hover { color: var(--fg); border-color: var(--accent); }
+.feat-category.active {
+  color: var(--brand-white);
+  background: var(--accent);
+  border-color: var(--accent);
+}
 
 /* Galería del feat-select — estilo Groshev (kirillgroshev.com/narrative):
    grid de 3 columnas, thumbnails a color real, caption debajo de cada uno. */
@@ -929,9 +951,9 @@ main section:not(.hero)::before {
 
 /* ============ REDISEÑO: Acumin Variable en Directed y About (solo tipografía, sin tocar color) ============ */
 /* Los tags entre corchetes ([PROJECT_SELECT // TRV_027], etc.) se quedan en su fuente original */
-.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link),
-.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link),
-.page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link) {
+.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link):not(.feat-category):not(.feat-name),
+.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link):not(.feat-category):not(.feat-name),
+.page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link):not(.feat-category):not(.feat-name) {
   font-family: var(--font-acumin) !important;
   font-weight: 500 !important;
   font-stretch: 115% !important;
