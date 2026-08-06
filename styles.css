@@ -232,7 +232,10 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
 }
 .overlap-title {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 90%;
+  font-variation-settings: "wght" 800, "wdth" 90, "slnt" -12;
   text-transform: none;
   font-size: clamp(80px, 19vw, 320px);
   line-height: 0.82;
@@ -752,7 +755,10 @@ main section:not(.hero)::before {
 /* ============ RESERVA ============ */
 .reserve { max-width: none; margin: 0; }
 .reserve-title {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 90%;
+  font-variation-settings: "wght" 800, "wdth" 90, "slnt" -12;
   font-size: clamp(70px, 16vw, 210px);
   line-height: 0.85;
   letter-spacing: -0.09em;
