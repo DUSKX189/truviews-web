@@ -18,6 +18,7 @@
   --font-display: 'Zalando Sans Expanded', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
   --font-mono: 'Space Mono', monospace;
+  --font-acumin: 'acumin-variable', sans-serif;
 
   --wrap: 1180px;
   --pad: clamp(24px, 5vw, 72px);
