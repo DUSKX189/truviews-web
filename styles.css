@@ -489,14 +489,6 @@ main section:not(.hero)::before {
   background: var(--accent);
   border-color: var(--accent);
 }
-.feat-category--toggle {
-  margin-left: 8px;
-  border-style: dashed;
-  color: var(--accent-dim);
-  border-color: var(--accent-dim);
-}
-.feat-category--toggle:hover { color: var(--accent); border-color: var(--accent); }
-.feat-category--toggle.active { border-style: solid; }
 
 /* Galería del feat-select — estilo Groshev (kirillgroshev.com/narrative):
    grid de 3 columnas, thumbnails a color real, caption debajo de cada uno. */
