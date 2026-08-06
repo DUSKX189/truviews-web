@@ -402,7 +402,7 @@ main section:not(.hero)::before {
   font-family: var(--font-acumin);
   font-weight: 800;
   font-stretch: 90%;
-  font-variation-settings: "wght" 800, "wdth" 90;
+  font-variation-settings: "wght" 800, "wdth" 90, "slnt" -12;
   text-transform: none;
   font-size: clamp(48px, 9vw, 110px);
   line-height: 0.85;
