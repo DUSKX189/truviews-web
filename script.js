@@ -352,6 +352,12 @@ if (featCategories.length) {
 
   refreshGrid();
 } else if (featNames.length && featItems.length) {
+  // Algunas páginas (Home) tienen más tiles en el catálogo de las que se
+  // muestran por defecto — solo las marcadas con data-default-visible salen
+  // sin filtro; el resto aparece al seleccionar el artista correspondiente.
+  const hasDefaultVisibleFlag = Array.from(featItems).some(
+    (item) => item.querySelector('.feat-tile').hasAttribute('data-default-visible')
+  );
   let activeArtist = null;
   featNames.forEach((nameEl) => {
     nameEl.addEventListener('click', () => {
@@ -360,18 +366,27 @@ if (featCategories.length) {
       featNames.forEach((el) => el.classList.toggle('active', el.dataset.artist === activeArtist));
       featItems.forEach((item) => {
         item.classList.remove('dimmed');
+        const tile = item.querySelector('.feat-tile');
         if (!activeArtist) {
-          item.style.display = '';
+          const visible = hasDefaultVisibleFlag ? tile.hasAttribute('data-default-visible') : true;
+          item.style.display = visible ? '' : 'none';
           item.classList.remove('active');
           return;
         }
-        const artists = item.querySelector('.feat-tile').dataset.artists.split(',');
+        const artists = tile.dataset.artists.split(',');
         const match = artists.includes(activeArtist);
         item.style.display = match ? '' : 'none';
         item.classList.toggle('active', match);
       });
     });
   });
+
+  if (hasDefaultVisibleFlag) {
+    featItems.forEach((item) => {
+      const tile = item.querySelector('.feat-tile');
+      item.style.display = tile.hasAttribute('data-default-visible') ? '' : 'none';
+    });
+  }
 }
 
 function closeLightbox() {
