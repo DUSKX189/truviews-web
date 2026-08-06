@@ -300,20 +300,23 @@ if (featCategories.length) {
   let galleryOnly = false;
 
   function refreshGrid() {
-    featCategories.forEach((el) => el.classList.toggle('active', el.dataset.category === activeCategory));
-    featSubLists.forEach((el) => { el.hidden = el.dataset.subfilterFor !== activeCategory; });
-    featNames.forEach((el) => el.classList.toggle('active', el.dataset.artist === activeArtist));
+    featCategories.forEach((el) => el.classList.toggle('active', !galleryOnly && el.dataset.category === activeCategory));
+    featSubLists.forEach((el) => { el.hidden = galleryOnly || el.dataset.subfilterFor !== activeCategory; });
+    featNames.forEach((el) => el.classList.toggle('active', !galleryOnly && el.dataset.artist === activeArtist));
     featItems.forEach((item) => {
       const tile = item.querySelector('.feat-tile');
-      let visible = tile.dataset.category === activeCategory;
-      if (visible && activeArtist) {
-        visible = tile.dataset.artists.split(',').includes(activeArtist);
-      }
-      if (visible && galleryOnly) {
+      let visible;
+      if (galleryOnly) {
+        // "Detrás de cámaras" ignora la categoría activa: muestra TODO lo que tenga contenido propio.
         visible = tile.hasAttribute('data-has-gallery');
+      } else {
+        visible = tile.dataset.category === activeCategory;
+        if (visible && activeArtist) {
+          visible = tile.dataset.artists.split(',').includes(activeArtist);
+        }
       }
       item.style.display = visible ? '' : 'none';
-      item.classList.toggle('active', visible && !!activeArtist);
+      item.classList.toggle('active', !galleryOnly && visible && !!activeArtist);
       item.classList.remove('dimmed');
     });
   }
