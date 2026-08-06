@@ -294,17 +294,27 @@ const featNames = document.querySelectorAll('.feat-name[data-artist]');
 const featItems = document.querySelectorAll('.feat-item');
 
 if (featCategories.length) {
+  const galleryToggle = document.querySelector('.feat-category--toggle[data-toggle="gallery"]');
   let activeCategory = featCategories[0].dataset.category;
   let activeArtist = null;
+  let galleryOnly = false;
 
-  function showCategory() {
+  function refreshGrid() {
     featCategories.forEach((el) => el.classList.toggle('active', el.dataset.category === activeCategory));
     featSubLists.forEach((el) => { el.hidden = el.dataset.subfilterFor !== activeCategory; });
-    featNames.forEach((el) => el.classList.remove('active'));
+    featNames.forEach((el) => el.classList.toggle('active', el.dataset.artist === activeArtist));
     featItems.forEach((item) => {
       const tile = item.querySelector('.feat-tile');
-      item.style.display = tile.dataset.category === activeCategory ? '' : 'none';
-      item.classList.remove('dimmed', 'active');
+      let visible = tile.dataset.category === activeCategory;
+      if (visible && activeArtist) {
+        visible = tile.dataset.artists.split(',').includes(activeArtist);
+      }
+      if (visible && galleryOnly) {
+        visible = tile.hasAttribute('data-has-gallery');
+      }
+      item.style.display = visible ? '' : 'none';
+      item.classList.toggle('active', visible && !!activeArtist);
+      item.classList.remove('dimmed');
     });
   }
 
@@ -313,7 +323,7 @@ if (featCategories.length) {
       if (cat.dataset.category === activeCategory) return;
       activeCategory = cat.dataset.category;
       activeArtist = null;
-      showCategory();
+      refreshGrid();
     });
   });
 
@@ -321,25 +331,19 @@ if (featCategories.length) {
     nameEl.addEventListener('click', () => {
       const artist = nameEl.dataset.artist;
       activeArtist = activeArtist === artist ? null : artist;
-      featNames.forEach((el) => el.classList.toggle('active', el.dataset.artist === activeArtist));
-      featItems.forEach((item) => {
-        const tile = item.querySelector('.feat-tile');
-        item.classList.remove('dimmed');
-        if (tile.dataset.category !== activeCategory) { item.style.display = 'none'; return; }
-        if (!activeArtist) {
-          item.style.display = '';
-          item.classList.remove('active');
-          return;
-        }
-        const artists = tile.dataset.artists.split(',');
-        const match = artists.includes(activeArtist);
-        item.style.display = match ? '' : 'none';
-        item.classList.toggle('active', match);
-      });
+      refreshGrid();
     });
   });
 
-  showCategory();
+  if (galleryToggle) {
+    galleryToggle.addEventListener('click', () => {
+      galleryOnly = !galleryOnly;
+      galleryToggle.classList.toggle('active', galleryOnly);
+      refreshGrid();
+    });
+  }
+
+  refreshGrid();
 } else if (featNames.length && featItems.length) {
   let activeArtist = null;
   featNames.forEach((nameEl) => {
