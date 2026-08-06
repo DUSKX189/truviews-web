@@ -15,6 +15,11 @@
   --accent-dim: #7a231d;
   --line: #2a2723;
 
+  /* Colores corporativos (rediseño) */
+  --brand-white: #ffffff;
+  --brand-red: #d8123c;
+  --brand-cream: #fff1e6;
+
   --font-display: 'Zalando Sans Expanded', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
   --font-mono: 'Space Mono', monospace;
