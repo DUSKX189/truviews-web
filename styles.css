@@ -331,7 +331,7 @@ main section:not(.hero)::before {
 .nosotros-highlight {
   position: relative;
   color: var(--accent);
-  animation: nosotros-flicker 6s infinite;
+  animation: nosotros-flicker 14s ease-in-out infinite;
 }
 .nosotros-highlight::before,
 .nosotros-highlight::after {
@@ -341,12 +341,9 @@ main section:not(.hero)::before {
 .nosotros-highlight::before { content: '['; margin-right: 4px; }
 .nosotros-highlight::after { content: ']'; margin-left: 4px; }
 @keyframes nosotros-flicker {
-  0%, 91%, 100% { opacity: 1; }
-  92% { opacity: 0.25; }
-  93% { opacity: 1; }
-  94% { opacity: 0.15; }
-  95%, 97% { opacity: 1; }
-  96% { opacity: 0.4; }
+  0%, 78% { opacity: 1; }
+  86% { opacity: 0.4; }
+  94%, 100% { opacity: 1; }
 }
 .nosotros-grid--3 { grid-template-columns: 0.32fr 1fr 0.32fr; align-items: stretch; }
 .nosotros-grid--3 .nosotros-box { aspect-ratio: auto; height: clamp(260px, 34vw, 480px); }
