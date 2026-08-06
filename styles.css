@@ -111,10 +111,6 @@ a { color: inherit; text-decoration: none; }
   transition: color 0.2s ease;
   white-space: nowrap;
 }
-.nav-link.active {
-  font-weight: 800;
-  font-variation-settings: "wght" 800, "wdth" 100;
-}
 .nav-link::before,
 .nav-link::after {
   color: var(--accent);
