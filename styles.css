@@ -433,7 +433,7 @@ main section:not(.hero)::before {
   font-size: clamp(11px, 1.6vw, 16px);
   letter-spacing: 0.02em;
   color: var(--fg);
-  margin: 0 0 4px;
+  margin: 0 0 28px;
   transition: color 0.2s ease;
 }
 .feat-title:hover { color: var(--accent); }
