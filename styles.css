@@ -918,9 +918,9 @@ main section:not(.hero)::before {
 
 /* ============ REDISEÑO: Acumin Variable en Directed y About (solo tipografía, sin tocar color) ============ */
 /* Los tags entre corchetes ([PROJECT_SELECT // TRV_027], etc.) se quedan en su fuente original */
-.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display),
-.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display),
-.page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display) {
+.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title),
+.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title),
+.page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title) {
   font-family: var(--font-acumin) !important;
   font-weight: 500 !important;
   font-variation-settings: "wght" 500;
