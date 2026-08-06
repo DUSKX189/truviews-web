@@ -323,9 +323,11 @@ if (featCategories.length) {
 
   featCategories.forEach((cat) => {
     cat.addEventListener('click', () => {
-      if (cat.dataset.category === activeCategory) return;
+      if (cat.dataset.category === activeCategory && !galleryOnly) return;
       activeCategory = cat.dataset.category;
       activeArtist = null;
+      galleryOnly = false;
+      if (galleryToggle) galleryToggle.classList.remove('active');
       refreshGrid();
     });
   });
@@ -334,6 +336,8 @@ if (featCategories.length) {
     nameEl.addEventListener('click', () => {
       const artist = nameEl.dataset.artist;
       activeArtist = activeArtist === artist ? null : artist;
+      galleryOnly = false;
+      if (galleryToggle) galleryToggle.classList.remove('active');
       refreshGrid();
     });
   });
