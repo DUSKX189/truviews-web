@@ -890,9 +890,10 @@ main section:not(.hero)::before {
 }
 
 /* ============ REDISEÑO: Acumin Variable en Directed y About (solo tipografía, sin tocar color) ============ */
-.page-directed *,
-.page-about * {
+/* Los tags entre corchetes ([PROJECT_SELECT // TRV_027], etc.) se quedan en su fuente original */
+.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea),
+.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea) {
   font-family: var(--font-acumin) !important;
-  font-weight: 400 !important;
-  font-variation-settings: "wght" 400;
+  font-weight: 500 !important;
+  font-variation-settings: "wght" 500;
 }
