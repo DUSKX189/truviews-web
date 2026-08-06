@@ -330,19 +330,24 @@ main section:not(.hero)::before {
 }
 .nosotros-highlight {
   position: relative;
-  color: var(--fg-dim);
+  color: var(--accent);
+  animation: nosotros-flicker 6s infinite;
 }
 .nosotros-highlight::before,
 .nosotros-highlight::after {
   color: var(--accent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  opacity: 1;
 }
 .nosotros-highlight::before { content: '['; margin-right: 4px; }
 .nosotros-highlight::after { content: ']'; margin-left: 4px; }
-.nosotros-highlight:hover { color: var(--accent); }
-.nosotros-highlight:hover::before,
-.nosotros-highlight:hover::after { opacity: 1; }
+@keyframes nosotros-flicker {
+  0%, 91%, 100% { opacity: 1; }
+  92% { opacity: 0.25; }
+  93% { opacity: 1; }
+  94% { opacity: 0.15; }
+  95%, 97% { opacity: 1; }
+  96% { opacity: 0.4; }
+}
 .nosotros-grid--3 { grid-template-columns: 0.32fr 1fr 0.32fr; align-items: stretch; }
 .nosotros-grid--3 .nosotros-box { aspect-ratio: auto; height: clamp(260px, 34vw, 480px); }
 .nosotros-box--peek { overflow: hidden; }
