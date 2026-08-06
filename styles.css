@@ -462,7 +462,8 @@ main section:not(.hero)::before {
 .feat-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
   margin: 0 0 32px;
 }
 .feat-categories .feat-sep { display: none; }
@@ -471,13 +472,15 @@ main section:not(.hero)::before {
   font-weight: 800 !important;
   font-stretch: 90%;
   font-variation-settings: "wght" 800, "wdth" 90;
-  font-size: clamp(14px, 2vw, 20px);
-  letter-spacing: 0.02em;
+  font-size: clamp(11px, 1.3vw, 13px);
+  letter-spacing: 0.03em;
+  line-height: 1;
   color: var(--fg-dim);
   cursor: pointer;
-  padding: 10px 22px;
+  padding: 8px 16px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
   transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 .feat-category:hover { color: var(--fg); border-color: var(--accent); }
