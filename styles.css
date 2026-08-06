@@ -342,14 +342,14 @@ main section:not(.hero)::before {
 .nosotros-highlight::before { content: '['; margin-right: 4px; }
 .nosotros-highlight::after { content: ']'; margin-left: 4px; }
 @keyframes nosotros-flicker-color {
-  0%, 78% { color: var(--fg-dim); }
-  86% { color: var(--accent); }
-  94%, 100% { color: var(--fg-dim); }
+  0%, 60% { color: var(--fg-dim); }
+  70%, 90% { color: var(--accent); }
+  100% { color: var(--fg-dim); }
 }
 @keyframes nosotros-flicker-brackets {
-  0%, 78% { opacity: 0; }
-  86% { opacity: 1; }
-  94%, 100% { opacity: 0; }
+  0%, 60% { opacity: 0; }
+  70%, 90% { opacity: 1; }
+  100% { opacity: 0; }
 }
 .nosotros-grid--3 { grid-template-columns: 0.32fr 1fr 0.32fr; align-items: stretch; }
 .nosotros-grid--3 .nosotros-box { aspect-ratio: auto; height: clamp(260px, 34vw, 480px); }
