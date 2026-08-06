@@ -933,5 +933,6 @@ main section:not(.hero)::before {
 .page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title) {
   font-family: var(--font-acumin) !important;
   font-weight: 500 !important;
-  font-variation-settings: "wght" 500;
+  font-stretch: 115% !important;
+  font-variation-settings: "wght" 500, "wdth" 115;
 }
