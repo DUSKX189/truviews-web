@@ -391,7 +391,10 @@ main section:not(.hero)::before {
   padding-right: 32px;
 }
 .feat-display {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 90%;
+  font-variation-settings: "wght" 800, "wdth" 90;
   text-transform: none;
   font-size: clamp(48px, 9vw, 110px);
   line-height: 0.85;
@@ -896,9 +899,9 @@ main section:not(.hero)::before {
 
 /* ============ REDISEÑO: Acumin Variable en Directed y About (solo tipografía, sin tocar color) ============ */
 /* Los tags entre corchetes ([PROJECT_SELECT // TRV_027], etc.) se quedan en su fuente original */
-.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea),
-.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea),
-.page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea) {
+.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display),
+.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display),
+.page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display) {
   font-family: var(--font-acumin) !important;
   font-weight: 500 !important;
   font-variation-settings: "wght" 500;
