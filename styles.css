@@ -888,3 +888,11 @@ main section:not(.hero)::before {
   .feat-tile-play { display: none; }
   .feat-tile-caption { font-size: 11px; margin-top: 10px; }
 }
+
+/* ============ REDISEÑO: Acumin Variable en Directed y About (solo tipografía, sin tocar color) ============ */
+.page-directed *,
+.page-about * {
+  font-family: var(--font-acumin) !important;
+  font-weight: 400 !important;
+  font-variation-settings: "wght" 400;
+}
