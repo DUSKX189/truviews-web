@@ -330,20 +330,26 @@ main section:not(.hero)::before {
 }
 .nosotros-highlight {
   position: relative;
-  color: var(--accent);
-  animation: nosotros-flicker 4s ease-in-out infinite;
+  color: var(--fg-dim);
+  animation: nosotros-flicker-color 4s ease-in-out infinite;
 }
 .nosotros-highlight::before,
 .nosotros-highlight::after {
   color: var(--accent);
-  opacity: 1;
+  opacity: 0;
+  animation: nosotros-flicker-brackets 4s ease-in-out infinite;
 }
 .nosotros-highlight::before { content: '['; margin-right: 4px; }
 .nosotros-highlight::after { content: ']'; margin-left: 4px; }
-@keyframes nosotros-flicker {
-  0%, 78% { opacity: 1; }
-  86% { opacity: 0.4; }
-  94%, 100% { opacity: 1; }
+@keyframes nosotros-flicker-color {
+  0%, 78% { color: var(--fg-dim); }
+  86% { color: var(--accent); }
+  94%, 100% { color: var(--fg-dim); }
+}
+@keyframes nosotros-flicker-brackets {
+  0%, 78% { opacity: 0; }
+  86% { opacity: 1; }
+  94%, 100% { opacity: 0; }
 }
 .nosotros-grid--3 { grid-template-columns: 0.32fr 1fr 0.32fr; align-items: stretch; }
 .nosotros-grid--3 .nosotros-box { aspect-ratio: auto; height: clamp(260px, 34vw, 480px); }
