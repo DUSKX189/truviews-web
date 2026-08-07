@@ -433,11 +433,14 @@ main section:not(.hero)::before {
   font-weight: 700;
   font-size: clamp(11px, 1.6vw, 16px);
   letter-spacing: 0.02em;
-  color: var(--fg);
+  display: inline-block;
+  background: var(--accent);
+  color: #000000;
+  padding: 4px 14px;
   margin: 0 0 28px;
-  transition: color 0.2s ease;
+  transition: opacity 0.2s ease;
 }
-.feat-title:hover { color: var(--accent); }
+.feat-title:hover { opacity: 0.8; }
 .feat-select--home .feat-title,
 .feat-select--home .feat-names { max-width: 58%; }
 .feat-names {
