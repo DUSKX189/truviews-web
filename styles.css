@@ -422,7 +422,7 @@ main section:not(.hero)::before {
   font-stretch: 115%;
   font-variation-settings: "wght" 800, "wdth" 115, "slnt" -12;
   text-transform: none;
-  font-size: clamp(48px, 9vw, 110px);
+  font-size: clamp(70px, 16vw, 210px);
   line-height: 0.85;
   letter-spacing: -0.08em;
   color: var(--fg);
