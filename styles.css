@@ -957,6 +957,8 @@ main section:not(.hero)::before {
   .bio-contacts { flex-direction: column; gap: 24px; }
   .feat-gallery { grid-template-columns: 1fr; gap: 32px; }
   main section { padding: 96px var(--pad); }
+  .feat-display, .reserve-title { font-size: clamp(40px, 13vw, 90px); }
+  .overlap-title--logo img { width: clamp(220px, 70vw, 400px); }
   .pillar-link { flex-wrap: wrap; }
   .nosotros { text-align: left; }
   .site-footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px var(--pad) 40px; }
