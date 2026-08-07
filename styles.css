@@ -828,16 +828,16 @@ main section:not(.hero)::before {
   letter-spacing: -0.09em;
   margin: 0 0 20px;
   color: var(--brand-white);
-  display: inline-block;
-  border-bottom: 6px solid var(--accent);
-  padding-bottom: 14px;
 }
 .reserve-tag {
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: clamp(16px, 2.4vw, 28px);
   letter-spacing: 0.02em;
-  color: var(--fg);
+  display: inline-block;
+  background: var(--accent);
+  color: #000000;
+  padding: 4px 14px;
   margin: 0 0 56px;
 }
 .reserve-form { display: flex; flex-direction: column; }
