@@ -504,6 +504,15 @@ main section:not(.hero)::before {
 }
 .feat-item { opacity: 1; transition: opacity 0.35s ease; }
 .feat-item.dimmed { opacity: 0.2; }
+
+/* Directed: los videos entran desde el lado de su columna (izq de la izq, dr de la dr) */
+.feat-gallery .feat-item.reveal {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.6s cubic-bezier(.16,.84,.44,1), transform 0.6s cubic-bezier(.16,.84,.44,1);
+}
+.feat-gallery .feat-item.reveal:nth-child(even) { transform: translateX(60px); }
+.feat-gallery .feat-item.reveal.in-view { opacity: 1; transform: translateX(0); }
 .feat-tile {
   position: relative;
   aspect-ratio: 16/9;
