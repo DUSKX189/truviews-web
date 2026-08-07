@@ -242,14 +242,6 @@ if (scrambleEls.length) {
   scrambleEls.forEach((el) => scrambleObserver.observe(el));
 }
 
-// Cascada: dentro de las galerías (tiles, fotos), cada elemento entra un
-// poco después del anterior en vez de todos a la vez.
-document.querySelectorAll('.feat-gallery, .project-photo-grid, .about-gallery-row').forEach((grid) => {
-  Array.from(grid.children).forEach((child, i) => {
-    if (child.classList.contains('reveal')) child.style.setProperty('--stagger', i);
-  });
-});
-
 // Scroll reveal
 const revealItems = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
