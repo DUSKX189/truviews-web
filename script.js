@@ -294,26 +294,41 @@ const featNames = document.querySelectorAll('.feat-name[data-artist]');
 const featItems = document.querySelectorAll('.feat-item');
 
 if (featCategories.length) {
+  const galleryToggle = document.querySelector('.feat-category--toggle[data-toggle="gallery"]');
   let activeCategory = featCategories[0].dataset.category;
   let activeArtist = null;
+  let galleryOnly = false;
 
-  function showCategory() {
-    featCategories.forEach((el) => el.classList.toggle('active', el.dataset.category === activeCategory));
-    featSubLists.forEach((el) => { el.hidden = el.dataset.subfilterFor !== activeCategory; });
-    featNames.forEach((el) => el.classList.remove('active'));
+  function refreshGrid() {
+    featCategories.forEach((el) => el.classList.toggle('active', !galleryOnly && el.dataset.category === activeCategory));
+    featSubLists.forEach((el) => { el.hidden = galleryOnly || el.dataset.subfilterFor !== activeCategory; });
+    featNames.forEach((el) => el.classList.toggle('active', !galleryOnly && el.dataset.artist === activeArtist));
     featItems.forEach((item) => {
       const tile = item.querySelector('.feat-tile');
-      item.style.display = tile.dataset.category === activeCategory ? '' : 'none';
-      item.classList.remove('dimmed', 'active');
+      let visible;
+      if (galleryOnly) {
+        // "Detrás de cámaras" ignora la categoría activa: muestra TODO lo que tenga contenido propio.
+        visible = tile.hasAttribute('data-has-gallery');
+      } else {
+        visible = tile.dataset.category === activeCategory;
+        if (visible && activeArtist) {
+          visible = tile.dataset.artists.split(',').includes(activeArtist);
+        }
+      }
+      item.style.display = visible ? '' : 'none';
+      item.classList.toggle('active', !galleryOnly && visible && !!activeArtist);
+      item.classList.remove('dimmed');
     });
   }
 
   featCategories.forEach((cat) => {
     cat.addEventListener('click', () => {
-      if (cat.dataset.category === activeCategory) return;
+      if (cat.dataset.category === activeCategory && !galleryOnly) return;
       activeCategory = cat.dataset.category;
       activeArtist = null;
-      showCategory();
+      galleryOnly = false;
+      if (galleryToggle) galleryToggle.classList.remove('active');
+      refreshGrid();
     });
   });
 
@@ -321,13 +336,40 @@ if (featCategories.length) {
     nameEl.addEventListener('click', () => {
       const artist = nameEl.dataset.artist;
       activeArtist = activeArtist === artist ? null : artist;
+      galleryOnly = false;
+      if (galleryToggle) galleryToggle.classList.remove('active');
+      refreshGrid();
+    });
+  });
+
+  if (galleryToggle) {
+    galleryToggle.addEventListener('click', () => {
+      galleryOnly = !galleryOnly;
+      galleryToggle.classList.toggle('active', galleryOnly);
+      refreshGrid();
+    });
+  }
+
+  refreshGrid();
+} else if (featNames.length && featItems.length) {
+  // Algunas páginas (Home) tienen más tiles en el catálogo de las que se
+  // muestran por defecto — solo las marcadas con data-default-visible salen
+  // sin filtro; el resto aparece al seleccionar el artista correspondiente.
+  const hasDefaultVisibleFlag = Array.from(featItems).some(
+    (item) => item.querySelector('.feat-tile').hasAttribute('data-default-visible')
+  );
+  let activeArtist = null;
+  featNames.forEach((nameEl) => {
+    nameEl.addEventListener('click', () => {
+      const artist = nameEl.dataset.artist;
+      activeArtist = activeArtist === artist ? null : artist;
       featNames.forEach((el) => el.classList.toggle('active', el.dataset.artist === activeArtist));
       featItems.forEach((item) => {
-        const tile = item.querySelector('.feat-tile');
         item.classList.remove('dimmed');
-        if (tile.dataset.category !== activeCategory) { item.style.display = 'none'; return; }
+        const tile = item.querySelector('.feat-tile');
         if (!activeArtist) {
-          item.style.display = '';
+          const visible = hasDefaultVisibleFlag ? tile.hasAttribute('data-default-visible') : true;
+          item.style.display = visible ? '' : 'none';
           item.classList.remove('active');
           return;
         }
@@ -339,28 +381,12 @@ if (featCategories.length) {
     });
   });
 
-  showCategory();
-} else if (featNames.length && featItems.length) {
-  let activeArtist = null;
-  featNames.forEach((nameEl) => {
-    nameEl.addEventListener('click', () => {
-      const artist = nameEl.dataset.artist;
-      activeArtist = activeArtist === artist ? null : artist;
-      featNames.forEach((el) => el.classList.toggle('active', el.dataset.artist === activeArtist));
-      featItems.forEach((item) => {
-        item.classList.remove('dimmed');
-        if (!activeArtist) {
-          item.style.display = '';
-          item.classList.remove('active');
-          return;
-        }
-        const artists = item.querySelector('.feat-tile').dataset.artists.split(',');
-        const match = artists.includes(activeArtist);
-        item.style.display = match ? '' : 'none';
-        item.classList.toggle('active', match);
-      });
+  if (hasDefaultVisibleFlag) {
+    featItems.forEach((item) => {
+      const tile = item.querySelector('.feat-tile');
+      item.style.display = tile.hasAttribute('data-default-visible') ? '' : 'none';
     });
-  });
+  }
 }
 
 function closeLightbox() {

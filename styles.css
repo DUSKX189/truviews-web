@@ -11,13 +11,19 @@
   --fg: #f3ede2;
   --fg-dim: #948d80;
   --fg-faint: #4d473e;
-  --accent: #ff3b2f;
-  --accent-dim: #7a231d;
+  --accent: #d8123c;
+  --accent-dim: #770a21;
   --line: #2a2723;
+
+  /* Colores corporativos (rediseño) */
+  --brand-white: #ffffff;
+  --brand-red: #d8123c;
+  --brand-cream: #fff1e6;
 
   --font-display: 'Zalando Sans Expanded', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
   --font-mono: 'Space Mono', monospace;
+  --font-acumin: 'acumin-variable', sans-serif;
 
   --wrap: 1180px;
   --pad: clamp(24px, 5vw, 72px);
@@ -88,22 +94,23 @@ a { color: inherit; text-decoration: none; }
   display: block;
 }
 .logo img {
-  height: 26px;
+  height: 34px;
   width: auto;
   display: block;
 }
 
 .nav-link {
-  font-family: var(--font-body);
-  font-size: 20px;
+  font-family: var(--font-acumin);
+  font-size: 15px;
   font-weight: 500;
+  font-stretch: 100%;
+  font-variation-settings: "wght" 500, "wdth" 100;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--fg);
+  color: var(--accent);
   transition: color 0.2s ease;
   white-space: nowrap;
 }
-.nav-link:hover, .nav-link.active { color: var(--accent); }
 .nav-link::before,
 .nav-link::after {
   color: var(--accent);
@@ -132,8 +139,8 @@ a { color: inherit; text-decoration: none; }
   z-index: 300;
 }
 .nav-toggle span {
-  width: 24px; height: 2px;
-  background: var(--fg);
+  width: 20px; height: 2px;
+  background: var(--accent);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -221,18 +228,31 @@ a { color: inherit; text-decoration: none; }
   max-width: none;
   margin: 0;
   background: var(--bg);
-  padding: 60px 20px;
+  padding: 120px 20px;
   text-align: center;
   overflow: hidden;
 }
 .overlap-title {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 115%;
+  font-variation-settings: "wght" 800, "wdth" 115, "slnt" -12;
   text-transform: none;
   font-size: clamp(80px, 19vw, 320px);
   line-height: 0.82;
   letter-spacing: -0.04em;
   white-space: nowrap;
-  margin: 0 0 20px;
+  margin: 0;
+}
+.overlap-title--logo {
+  display: flex;
+  justify-content: center;
+  white-space: normal;
+}
+.overlap-title--logo img {
+  width: clamp(280px, 55vw, 820px);
+  height: auto;
+  display: block;
 }
 .overlap-sub {
   font-family: var(--font-mono);
@@ -325,18 +345,26 @@ main section:not(.hero)::before {
 .nosotros-highlight {
   position: relative;
   color: var(--fg-dim);
+  animation: nosotros-flicker-color 4s ease-in-out infinite;
 }
 .nosotros-highlight::before,
 .nosotros-highlight::after {
   color: var(--accent);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  animation: nosotros-flicker-brackets 4s ease-in-out infinite;
 }
 .nosotros-highlight::before { content: '['; margin-right: 4px; }
 .nosotros-highlight::after { content: ']'; margin-left: 4px; }
-.nosotros-highlight:hover { color: var(--accent); }
-.nosotros-highlight:hover::before,
-.nosotros-highlight:hover::after { opacity: 1; }
+@keyframes nosotros-flicker-color {
+  0%, 60% { color: var(--fg-dim); }
+  70%, 90% { color: var(--accent); }
+  100% { color: var(--fg-dim); }
+}
+@keyframes nosotros-flicker-brackets {
+  0%, 60% { opacity: 0; }
+  70%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
 .nosotros-grid--3 { grid-template-columns: 0.32fr 1fr 0.32fr; align-items: stretch; }
 .nosotros-grid--3 .nosotros-box { aspect-ratio: auto; height: clamp(260px, 34vw, 480px); }
 .nosotros-box--peek { overflow: hidden; }
@@ -367,12 +395,15 @@ main section:not(.hero)::before {
 .pillar-index {
   font-family: var(--font-mono);
   font-size: 14px;
+  font-style: italic;
   color: var(--fg-faint);
 }
 .pillar-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 115%;
+  font-variation-settings: "wght" 800, "wdth" 115, "slnt" -12;
+  text-transform: capitalize;
   font-size: clamp(40px, 8vw, 96px);
   line-height: 1;
 }
@@ -385,9 +416,12 @@ main section:not(.hero)::before {
   padding-right: 32px;
 }
 .feat-display {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 115%;
+  font-variation-settings: "wght" 800, "wdth" 115, "slnt" -12;
   text-transform: none;
-  font-size: clamp(48px, 9vw, 110px);
+  font-size: clamp(70px, 16vw, 210px);
   line-height: 0.85;
   letter-spacing: -0.08em;
   color: var(--fg);
@@ -399,38 +433,66 @@ main section:not(.hero)::before {
   font-weight: 700;
   font-size: clamp(11px, 1.6vw, 16px);
   letter-spacing: 0.02em;
-  color: var(--fg);
-  margin: 0 0 4px;
-  transition: color 0.2s ease;
+  display: inline-block;
+  background: var(--accent);
+  color: #000000;
+  padding: 4px 14px;
+  margin: 0 0 28px;
+  transition: opacity 0.2s ease;
 }
-.feat-title:hover { color: var(--accent); }
+.feat-title:hover { opacity: 0.8; }
 .feat-select--home .feat-title,
 .feat-select--home .feat-names { max-width: 58%; }
 .feat-names {
-  font-family: var(--font-mono);
   font-weight: 400;
-  font-size: clamp(11px, 1.6vw, 16px);
-  line-height: 1.5;
+  font-size: clamp(10px, 1.3vw, 13px);
+  line-height: 1.6;
   letter-spacing: -0.01em;
   color: var(--fg-dim);
   margin: 0;
 }
-.feat-name { transition: color 0.15s ease; cursor: pointer; }
+.feat-name {
+  font-family: var(--font-acumin);
+  font-weight: 400 !important;
+  font-stretch: 115%;
+  font-variation-settings: "wght" 400, "wdth" 115;
+  transition: color 0.15s ease;
+  cursor: pointer;
+}
 .feat-name:hover { color: var(--accent); }
 .feat-name.active { color: var(--accent); }
 .feat-sep { color: var(--fg-faint); }
 
 .feat-categories {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: clamp(13px, 1.8vw, 18px);
-  letter-spacing: 0.03em;
-  color: var(--fg-dim);
-  margin: 0 0 4px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 32px;
 }
-.feat-category { cursor: pointer; transition: color 0.15s ease; }
-.feat-category:hover { color: var(--accent); }
-.feat-category.active { color: var(--accent); }
+.feat-categories .feat-sep { display: none; }
+.feat-category {
+  font-family: var(--font-acumin);
+  font-weight: 800 !important;
+  font-stretch: 90%;
+  font-variation-settings: "wght" 800, "wdth" 90;
+  font-size: clamp(11px, 1.3vw, 13px);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  color: var(--fg-dim);
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.feat-category:hover { color: var(--fg); border-color: var(--accent); }
+.feat-category.active {
+  color: var(--brand-white);
+  background: var(--accent);
+  border-color: var(--accent);
+}
 
 /* Galería del feat-select — estilo Groshev (kirillgroshev.com/narrative):
    grid de 3 columnas, thumbnails a color real, caption debajo de cada uno. */
@@ -442,6 +504,15 @@ main section:not(.hero)::before {
 }
 .feat-item { opacity: 1; transition: opacity 0.35s ease; }
 .feat-item.dimmed { opacity: 0.2; }
+
+/* Directed: los videos entran desde el lado de su columna (izq de la izq, dr de la dr) */
+.feat-gallery .feat-item.reveal {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.6s cubic-bezier(.16,.84,.44,1), transform 0.6s cubic-bezier(.16,.84,.44,1);
+}
+.feat-gallery .feat-item.reveal:nth-child(even) { transform: translateX(60px); }
+.feat-gallery .feat-item.reveal.in-view { opacity: 1; transform: translateX(0); }
 .feat-tile {
   position: relative;
   aspect-ratio: 16/9;
@@ -525,7 +596,10 @@ main section:not(.hero)::before {
 .bio-name { grid-column: 1 / 3; }
 .bio-heading-tag { grid-column: 3; justify-self: start; }
 .bio-name {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 115%;
+  font-variation-settings: "wght" 800, "wdth" 115, "slnt" -12;
   text-transform: none;
   font-size: clamp(40px, 6.5vw, 120px);
   line-height: 0.85;
@@ -735,19 +809,25 @@ main section:not(.hero)::before {
 /* ============ RESERVA ============ */
 .reserve { max-width: none; margin: 0; }
 .reserve-title {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--font-acumin);
+  font-weight: 800;
+  font-stretch: 115%;
+  font-variation-settings: "wght" 800, "wdth" 115, "slnt" -12;
   font-size: clamp(70px, 16vw, 210px);
   line-height: 0.85;
   letter-spacing: -0.09em;
   margin: 0 0 20px;
-  color: var(--fg);
+  color: var(--brand-white);
 }
 .reserve-tag {
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: clamp(16px, 2.4vw, 28px);
   letter-spacing: 0.02em;
-  color: var(--fg);
+  display: inline-block;
+  background: var(--accent);
+  color: #000000;
+  padding: 4px 14px;
   margin: 0 0 56px;
 }
 .reserve-form { display: flex; flex-direction: column; }
@@ -886,4 +966,15 @@ main section:not(.hero)::before {
   .feat-select--home .feat-names { max-width: 100%; }
   .feat-tile-play { display: none; }
   .feat-tile-caption { font-size: 11px; margin-top: 10px; }
+}
+
+/* ============ REDISEÑO: Acumin Variable en Directed y About (solo tipografía, sin tocar color) ============ */
+/* Los tags entre corchetes ([PROJECT_SELECT // TRV_027], etc.) se quedan en su fuente original */
+.page-directed *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link):not(.feat-category):not(.feat-name),
+.page-about *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link):not(.feat-category):not(.feat-name),
+.page-home *:not(.feat-title):not(.reserve-tag):not(.bio-heading-tag):not(.reserve-field input):not(.reserve-field textarea):not(.feat-display):not(.bio-name):not(.reserve-title):not(.overlap-title):not(.pillar-title):not(.nav-link):not(.feat-category):not(.feat-name) {
+  font-family: var(--font-acumin) !important;
+  font-weight: 500 !important;
+  font-stretch: 115% !important;
+  font-variation-settings: "wght" 500, "wdth" 115;
 }
