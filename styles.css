@@ -630,10 +630,17 @@ main section:not(.hero)::before {
 .bio-heading-tag:hover::before,
 .bio-heading-tag:hover::after { opacity: 1; }
 .full-bio {
-  max-width: 760px;
+  max-width: var(--wrap);
   margin: 0 auto;
 }
-.full-bio .feat-title { text-align: center; margin: 0 0 32px; }
+.full-bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 64px;
+  align-items: start;
+}
+.full-bio-text { max-width: 640px; }
+.full-bio .feat-title { text-align: left; margin: 0 0 32px; }
 .full-bio p {
   font-family: var(--font-mono);
   font-size: 16px;
@@ -642,6 +649,17 @@ main section:not(.hero)::before {
   margin: 0 0 24px;
 }
 .full-bio p:last-child { margin-bottom: 0; }
+.full-bio-photo {
+  position: sticky;
+  top: 120px;
+}
+.full-bio-photo img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
 .bio-grid {
   max-width: var(--wrap);
   margin: 0 auto;
@@ -959,6 +977,9 @@ main section:not(.hero)::before {
   main section { padding: 96px var(--pad); }
   .feat-display, .reserve-title { font-size: clamp(40px, 13vw, 90px); }
   .overlap-title--logo img { width: clamp(220px, 70vw, 400px); }
+  .full-bio-grid { grid-template-columns: 1fr; gap: 32px; }
+  .full-bio-text { max-width: none; }
+  .full-bio-photo { position: static; order: -1; max-width: 280px; }
   .pillar-link { flex-wrap: wrap; }
   .nosotros { text-align: left; }
   .site-footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px var(--pad) 40px; }
