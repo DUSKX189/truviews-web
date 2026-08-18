@@ -490,3 +490,45 @@ document.querySelectorAll('.mog-item video').forEach((video) => {
   });
 });
 
+// El video destacado (junto al título) se desmutea solo cuando bajas
+// y entra en pantalla; vuelve a mutearse si sales de la sección.
+// El botón de mute manda: si el usuario lo toca, dejamos de tocar su
+// elección automáticamente.
+const ICON_SOUND_ON = '<svg viewBox="0 0 24 24"><path d="M4 9v6h3l4 4V5L7 9H4z" fill="currentColor"/><path d="M14.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M17.3 6a8.6 8.6 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+const ICON_SOUND_OFF = '<svg viewBox="0 0 24 24"><path d="M4 9v6h3l4 4V5L7 9H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+
+document.querySelectorAll('.mog-hero-video').forEach((tile) => {
+  const video = tile.querySelector('video');
+  const muteBtn = tile.querySelector('.mog-mute-toggle');
+  let userOverride = false;
+
+  function syncIcon() {
+    if (muteBtn) muteBtn.innerHTML = video.muted ? ICON_SOUND_OFF : ICON_SOUND_ON;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (userOverride) return;
+      if (entry.isIntersecting) {
+        video.muted = false;
+        video.play().catch(() => { video.muted = true; }); // el navegador bloqueó el sonido, seguimos en mute
+      } else {
+        video.muted = true;
+      }
+      syncIcon();
+    });
+  }, { threshold: 0.6 });
+  io.observe(video);
+
+  if (muteBtn) {
+    muteBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // que no abra el lightbox
+      video.muted = !video.muted;
+      userOverride = true;
+      syncIcon();
+    });
+  }
+
+  syncIcon();
+});
+
