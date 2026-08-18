@@ -1,0 +1,8 @@
+# Entorno de desarrollo/staging (Coolify) — bloqueado a propósito.
+# El dominio truviewsmediagroup.com sigue mostrando "coming soon" hasta el
+# lanzamiento. Cuando el sitio esté listo para producción:
+#   1. Reemplazar las dos líneas de abajo por "User-agent: *" + "Allow: /"
+#   2. Añadir "Sitemap: https://www.truviewsmediagroup.com/sitemap.xml"
+#   3. Quitar el <meta name="robots" content="noindex, nofollow"> de las 5 páginas HTML
+User-agent: *
+Disallow: /

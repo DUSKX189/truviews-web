@@ -1,0 +1,6 @@
+.git
+.claude
+.gitignore
+Dockerfile
+nginx.conf
+.dockerignore
