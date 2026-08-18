@@ -391,7 +391,7 @@ if (featCategories.length) {
 
 function closeLightbox() {
   lightbox.classList.remove('open');
-  lightboxFrame.classList.remove('is-photo');
+  lightboxFrame.classList.remove('is-photo', 'is-local-video');
   lightboxFrame.innerHTML = '';
   document.body.classList.remove('nav-open');
 }
@@ -455,3 +455,38 @@ document.querySelectorAll('[data-swipe]').forEach((track) => {
     dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
   }, { passive: true });
 });
+
+// Making Off Gallery — click a tile to open it big in the lightbox
+// (video con sonido y controles, o foto ampliada)
+document.querySelectorAll('.mog-item, .mog-hero-video').forEach((tile) => {
+  tile.addEventListener('click', () => {
+    const video = tile.querySelector('video');
+    const img = tile.querySelector('img');
+    if (video) {
+      lightboxFrame.classList.remove('is-photo');
+      lightboxFrame.classList.add('is-local-video');
+      lightboxFrame.innerHTML = `<video src="${video.currentSrc}" controls autoplay playsinline></video>`;
+    } else if (img) {
+      lightboxFrame.classList.remove('is-local-video');
+      lightboxFrame.classList.add('is-photo');
+      lightboxFrame.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+    } else {
+      return;
+    }
+    lightbox.classList.add('open');
+    document.body.classList.add('nav-open');
+  });
+});
+
+// Making Off Gallery — los videos del grid están en pausa por defecto;
+// solo se reproducen al pasar el cursor (el del héroe, junto al título,
+// sigue en autoplay siempre).
+document.querySelectorAll('.mog-item video').forEach((video) => {
+  const tile = video.closest('.mog-item');
+  tile.addEventListener('mouseenter', () => video.play());
+  tile.addEventListener('mouseleave', () => {
+    video.pause();
+    video.currentTime = 0;
+  });
+});
+

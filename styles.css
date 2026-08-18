@@ -573,7 +573,7 @@ main section:not(.hero)::before {
 }
 .feat-item.active .feat-tile-caption { color: var(--accent); }
 /* ============ BIO TEMPLATE (estilo kirillgroshev.com/about) ============ */
-.bio-template { max-width: none; margin: 0; }
+.bio-template { max-width: none; margin: 0; padding-bottom: 56px; }
 .bio-cover {
   aspect-ratio: 16/8;
   overflow: hidden;
@@ -632,6 +632,7 @@ main section:not(.hero)::before {
 .full-bio {
   max-width: 760px;
   margin: 0 auto;
+  padding-bottom: 0;
 }
 .full-bio .feat-title { text-align: center; margin: 0 0 32px; }
 .full-bio p {
@@ -642,6 +643,76 @@ main section:not(.hero)::before {
   margin: 0 0 24px;
 }
 .full-bio p:last-child { margin-bottom: 0; }
+.mog {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: -50vw;
+  padding: 140px clamp(20px, 3vw, 48px);
+}
+.mog-hero {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3px;
+  align-items: center;
+}
+.mog-hero-video {
+  position: relative;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: var(--bg-panel);
+  cursor: pointer;
+}
+.mog-hero-video video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.mog-hero-video:hover video { transform: scale(1.04); }
+.mog-grid {
+  margin-top: 3px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.mog-item {
+  position: relative;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: var(--bg-panel);
+  cursor: pointer;
+}
+.project-gallery-bts { text-align: center; }
+.project-gallery-bts .feat-title { margin: 0 0 32px; }
+.project-gallery-bts-video {
+  aspect-ratio: 9/16;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.mog-item video, .mog-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.mog-item:hover video, .mog-item:hover img { transform: scale(1.04); }
+.mog-expand-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--fg);
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.mog-hero-video:hover .mog-expand-hint,
+.mog-item:hover .mog-expand-hint { opacity: 1; }
 .bio-grid {
   max-width: var(--wrap);
   margin: 0 auto;
@@ -695,7 +766,7 @@ main section:not(.hero)::before {
 .project-photo:hover img { transform: scale(1.04); }
 
 /* ============ DETRÁS DE CÁMARAS (galería de fotos) ============ */
-.about-gallery { max-width: none; margin: 0; scroll-margin-top: 110px; }
+.about-gallery { max-width: none; margin: 0; scroll-margin-top: 110px; padding-top: 0; }
 .about-gallery-row { display: grid; gap: 24px; }
 .about-gallery-row--3 { grid-template-columns: repeat(3, 1fr); margin-bottom: 24px; }
 .about-gallery-row--2 { grid-template-columns: repeat(2, 1fr); }
@@ -789,6 +860,18 @@ main section:not(.hero)::before {
   aspect-ratio: auto;
 }
 .lightbox-frame.is-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.lightbox-frame.is-local-video {
+  width: auto;
+  height: 90vh;
+  max-width: 90vw;
+  aspect-ratio: auto;
+}
+.lightbox-frame.is-local-video video {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -943,6 +1026,10 @@ main section:not(.hero)::before {
   .bio-heading-tag { font-size: 14px; }
   .bio-name { font-size: 58px; }
   .about-gallery-row--3, .about-gallery-row--2 { grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
+  .mog-grid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
+  .mog-hero { grid-template-columns: 1fr; gap: 12px; }
+  .mog-hero-heading, .mog-hero-heading .feat-title { text-align: left; }
+  .mog-hero-video { max-width: 340px; margin: 0 auto; }
   .project-photo-grid { grid-template-columns: repeat(2, 1fr); }
   .project-hero { aspect-ratio: auto; height: 60vh; overflow: hidden; }
   .project-video iframe {
