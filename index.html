@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/kqv0ndm.css">
   <link rel="icon" type="image/png" href="images/logos/favicon-red-tru.png">
   <link rel="apple-touch-icon" href="images/logos/favicon-red-tru-apple.png">
-  <link rel="stylesheet" href="styles.css?v=179">
+  <link rel="stylesheet" href="styles.css?v=183">
 </head>
 
 <body class="page-home">
@@ -309,7 +309,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section class="reserve divider-bleed">
+    <section class="reserve divider-bleed" id="reserve">
       <h2 class="reserve-title reveal">Contact</h2>
       <p class="reserve-tag reveal">[INICIAR PROYECTO // CUPO_LIMITADO]</p>
 
@@ -331,6 +331,11 @@
           <textarea name="message" rows="2" placeholder="[BRIEF_INFO]" required></textarea>
         </label>
 
+        <label class="reserve-consent">
+          <input type="checkbox" name="privacy_consent" required>
+          <span>He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a></span>
+        </label>
+
         <button type="submit" class="reserve-submit">ENVIAR</button>
         <p class="form-status" aria-live="polite"></p>
       </form>
@@ -343,6 +348,7 @@
     <nav class="footer-links">
       <a href="https://www.instagram.com/truviews_/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.youtube.com/@truviewsoficial" target="_blank" rel="noopener">YouTube</a>
+      <a href="privacidad.html">Privacidad</a>
     </nav>
   </footer>
 
@@ -352,7 +358,7 @@
     <div class="lightbox-frame" id="lightboxFrame"></div>
   </div>
 
-  <script src="script.js?v=47"></script>
+  <script src="script.js?v=49"></script>
 </body>
 
 </html>

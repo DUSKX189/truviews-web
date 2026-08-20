@@ -5,6 +5,7 @@ function initHeroPlayer() {
   if (!document.getElementById('heroPlayer')) return; // page has no hero video
   let heroReelIndex = 0;
   new YT.Player('heroPlayer', {
+    host: 'https://www.youtube-nocookie.com', // sin cookies de YouTube hasta que el usuario interactúa
     videoId: heroReels[0],
     playerVars: {
       // No `loop`/`playlist` here on purpose — those two together are what
@@ -52,6 +53,7 @@ const pendingYouTubeInits = [];
 
 function createAmbientPlayer(containerId, videoId, startSeconds) {
   new YT.Player(containerId, {
+    host: 'https://www.youtube-nocookie.com',
     videoId,
     playerVars: {
       autoplay: 1,
@@ -97,6 +99,7 @@ function initProjectPlayer() {
   if (!container) return;
   const videoId = container.dataset.videoId;
   new YT.Player('projectPlayer', {
+    host: 'https://www.youtube-nocookie.com',
     videoId,
     playerVars: {
       autoplay: 1,
@@ -260,7 +263,7 @@ const lightboxFrame = document.getElementById('lightboxFrame');
 const lightboxClose = document.getElementById('lightboxClose');
 
 // Project photo lightbox — click a BTS photo to see it bigger
-document.querySelectorAll('.project-photo, .about-gallery-photo').forEach(photo => {
+document.querySelectorAll('.project-photo').forEach(photo => {
   photo.addEventListener('click', () => {
     const img = photo.querySelector('img');
     if (!img) return;
@@ -278,7 +281,7 @@ document.querySelectorAll('.reel-card, .feat-tile').forEach(card => {
     const videoId = card.dataset.video;
     if (!videoId) return; // placeholder tile (no real video yet)
     lightboxFrame.classList.remove('is-photo');
-    lightboxFrame.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" title="TruViews video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    lightboxFrame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0" title="TruViews video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     lightbox.classList.add('open');
     document.body.classList.add('nav-open');
   });
@@ -390,6 +393,12 @@ if (featCategories.length) {
 }
 
 function closeLightbox() {
+  const openVideo = lightboxFrame.querySelector('video');
+  if (openVideo) {
+    openVideo.pause();
+    openVideo.removeAttribute('src');
+    openVideo.load(); // corta la descarga/reproducción de raíz, no solo la pausa
+  }
   lightbox.classList.remove('open');
   lightboxFrame.classList.remove('is-photo', 'is-local-video');
   lightboxFrame.innerHTML = '';
@@ -460,9 +469,15 @@ document.querySelectorAll('[data-swipe]').forEach((track) => {
 // (video con sonido y controles, o foto ampliada)
 document.querySelectorAll('.mog-item, .mog-hero-video').forEach((tile) => {
   tile.addEventListener('click', () => {
+    // En táctil no existe "quitar el mouse", así que un tap puede dejar
+    // videos del grid reproduciéndose de fondo indefinidamente. Frenamos
+    // todos al tocar cualquier tile.
+    document.querySelectorAll('.mog-item video').forEach((v) => { if (!v.paused) v.pause(); });
+
     const video = tile.querySelector('video');
     const img = tile.querySelector('img');
     if (video) {
+      video.pause(); // que no quede sonando de fondo, duplicado con la copia del lightbox
       lightboxFrame.classList.remove('is-photo');
       lightboxFrame.classList.add('is-local-video');
       lightboxFrame.innerHTML = `<video src="${video.currentSrc}" controls autoplay playsinline></video>`;
@@ -483,7 +498,7 @@ document.querySelectorAll('.mog-item, .mog-hero-video').forEach((tile) => {
 // sigue en autoplay siempre).
 document.querySelectorAll('.mog-item video').forEach((video) => {
   const tile = video.closest('.mog-item');
-  tile.addEventListener('mouseenter', () => video.play());
+  tile.addEventListener('mouseenter', () => video.play().catch(() => {})); // ignora el AbortError si sales antes de que arranque
   tile.addEventListener('mouseleave', () => {
     video.pause();
     video.currentTime = 0;
@@ -491,16 +506,17 @@ document.querySelectorAll('.mog-item video').forEach((video) => {
 });
 
 // El video destacado (junto al título) se desmutea solo cuando bajas
-// y entra en pantalla; vuelve a mutearse si sales de la sección.
-// El botón de mute manda: si el usuario lo toca, dejamos de tocar su
-// elección automáticamente.
+// y entra en pantalla. Al salir de pantalla SIEMPRE se vuelve a mutear,
+// sin excepción — así nunca queda sonando de fondo fuera de vista.
+// El botón de mute solo decide si, al volver a entrar en pantalla, se
+// desmutea solo o no (si el usuario lo muteó a mano, respetamos eso).
 const ICON_SOUND_ON = '<svg viewBox="0 0 24 24"><path d="M4 9v6h3l4 4V5L7 9H4z" fill="currentColor"/><path d="M14.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M17.3 6a8.6 8.6 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 const ICON_SOUND_OFF = '<svg viewBox="0 0 24 24"><path d="M4 9v6h3l4 4V5L7 9H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 
 document.querySelectorAll('.mog-hero-video').forEach((tile) => {
   const video = tile.querySelector('video');
   const muteBtn = tile.querySelector('.mog-mute-toggle');
-  let userOverride = false;
+  let userMuted = false; // true solo si el usuario lo muteó a mano
 
   function syncIcon() {
     if (muteBtn) muteBtn.innerHTML = video.muted ? ICON_SOUND_OFF : ICON_SOUND_ON;
@@ -508,12 +524,13 @@ document.querySelectorAll('.mog-hero-video').forEach((tile) => {
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (userOverride) return;
       if (entry.isIntersecting) {
-        video.muted = false;
-        video.play().catch(() => { video.muted = true; }); // el navegador bloqueó el sonido, seguimos en mute
+        if (!userMuted) {
+          video.muted = false;
+          video.play().catch(() => { video.muted = true; syncIcon(); }); // el navegador bloqueó el sonido, seguimos en mute
+        }
       } else {
-        video.muted = true;
+        video.muted = true; // siempre, sin excepción — así nunca suena fuera de pantalla
       }
       syncIcon();
     });
@@ -524,7 +541,7 @@ document.querySelectorAll('.mog-hero-video').forEach((tile) => {
     muteBtn.addEventListener('click', (e) => {
       e.stopPropagation(); // que no abra el lightbox
       video.muted = !video.muted;
-      userOverride = true;
+      userMuted = video.muted; // solo recordamos la elección de mutear, no la de activar
       syncIcon();
     });
   }
